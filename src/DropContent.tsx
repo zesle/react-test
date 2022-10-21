@@ -119,7 +119,7 @@ const DropContent = () => {
                                                 <time dateTime="2020-01-07">January 7, 2020</time>
                                             </p>
                                             <p className="mt-2 flex items-center text-sm text-gray-500">
-                                                <input ref={inputRef} type="text"/>
+                                                <input className="p-2" ref={inputRef} type="text"/>
                                             </p>
                                         </div>
                                     </div>
