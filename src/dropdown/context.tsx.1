@@ -2,18 +2,18 @@ import React, {useContext, useState} from 'react';
 
 interface DropdownContextInterface {
     show?: boolean
-    setShow: () => any
+    setShow: (show?: boolean) => any
 }
 
 const defaultState = {
-    show: true,
+    show: undefined,
     setShow: () => undefined as any
 };
 
 const DropdownContext = React.createContext<DropdownContextInterface>(defaultState);
 
 const DropdownProvider = ({children}: { children: React.ReactNode }) => {
-    const [show, setShow] = useState<boolean>(false)
+    const [show, setShow] = useState<boolean | undefined>(false)
 
     const setShow0 = (value: boolean = false) => {
         setShow(!value)

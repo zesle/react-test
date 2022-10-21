@@ -8,7 +8,7 @@ function App() {
 
     const handleClick = () => {
         setFilters((prevState: any) => {
-            return [...prevState, {show: true, name: 'filter 1'}]
+            return [...prevState, {open: true, name: 'filter 1'}]
         })
     }
 
@@ -19,8 +19,8 @@ function App() {
             {filters.map((filter: any, index: any) => {
                 return (
                     <div key={index} className="mt-5 ml-5">
-                        <Dropdown showx={filter.show}>
-                            <Dropdown.Toggle>{filter.name}</Dropdown.Toggle>
+                        <Dropdown>
+                            <Dropdown.Toggle open={filter.open}>{filter.name}</Dropdown.Toggle>
                             <Dropdown.Content>
                                 <DropContent/>
                             </Dropdown.Content>

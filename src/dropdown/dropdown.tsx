@@ -1,21 +1,12 @@
 import React, {useEffect} from "react";
 import {DropdownProvider, useDropdown} from './context'
+import useOnClickOutside from "use-onclickoutside";
 
 interface DropdownProps {
-    showx: boolean,
     children: React.ReactNode
 }
 
-const Dropdown = ({showx, children}: DropdownProps) => {
-    const {show, setShow} = useDropdown()
-    useEffect(() => {
-        setTimeout(()=>{
-            if (setShow) {
-                setShow()
-            }
-        },300)
-    }, [show, showx])
-
+const Dropdown = ({children}: DropdownProps) => {
     return (
         <div>
             <DropdownProvider>{children}</DropdownProvider>
@@ -25,29 +16,25 @@ const Dropdown = ({showx, children}: DropdownProps) => {
 
 interface ToggleProps {
     // children: (props: any) => React.ReactNode
+    open: boolean,
     children: React.ReactNode
 }
 
-export const Toggle = ({children}: ToggleProps) => {
+export const Toggle = ({open, children}: ToggleProps) => {
     const {show, setShow} = useDropdown()
+
+    // const ref = React.useRef(null)
+    // useOnClickOutside(ref, setShow)
+
+    useEffect(() => {
+        if (open) setShow()
+    }, [])
+
     const handleClick = (evt: any) => {
-        console.log(show)
-        if (setShow) {
-            setShow()
-        }
-
-        console.log(show)
+        setShow()
     }
 
-    const handleBlur = (evt: any) => {
-        // if (setShow) {
-        //  setShow()
-        // }
-    }
-
-    //   {(props:any) => <button {...props}>text</button>}
-
-    const props = {onClick: handleClick, onBlur: handleBlur}
+    const props = {onClick: handleClick}
     //  children.props = props
 
     // return (<>{children(props)}</>)
@@ -56,7 +43,7 @@ export const Toggle = ({children}: ToggleProps) => {
         type="button" {...props}
         className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2
         text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-        {children}
+        {show?'true':'false'} == {children}
     </button>
 }
 
@@ -66,10 +53,10 @@ interface ContentProps {
 }
 
 export const Content = ({children}: ContentProps) => {
-    const show = useDropdown()
+    const {show} = useDropdown()
 
     return (
-        <>{show && show.show ? <div className="absolute content mt-2">{children}</div> : ''}</>
+        <>{show ? <div className="absolute content mt-2">{children}</div> : ''}</>
     )
 }
 
