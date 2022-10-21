@@ -2,10 +2,20 @@ import React, {useEffect} from "react";
 import {DropdownProvider, useDropdown} from './context'
 
 interface DropdownProps {
+    showx: boolean,
     children: React.ReactNode
 }
 
-const Dropdown = ({children}: DropdownProps) => {
+const Dropdown = ({showx, children}: DropdownProps) => {
+    const {show, setShow} = useDropdown()
+    useEffect(() => {
+        setTimeout(()=>{
+            if (setShow) {
+                setShow()
+            }
+        },300)
+    }, [show, showx])
+
     return (
         <div>
             <DropdownProvider>{children}</DropdownProvider>
@@ -19,12 +29,20 @@ interface ToggleProps {
 }
 
 export const Toggle = ({children}: ToggleProps) => {
+    const {show, setShow} = useDropdown()
     const handleClick = (evt: any) => {
-        console.log(evt)
+        console.log(show)
+        if (setShow) {
+            setShow()
+        }
+
+        console.log(show)
     }
 
     const handleBlur = (evt: any) => {
-        console.log(evt)
+        // if (setShow) {
+        //  setShow()
+        // }
     }
 
     //   {(props:any) => <button {...props}>text</button>}
@@ -50,12 +68,8 @@ interface ContentProps {
 export const Content = ({children}: ContentProps) => {
     const show = useDropdown()
 
-    useEffect(()=>{
-        console.log(show)
-    },[])
-
     return (
-        <>{show ? <div className="content mt-2">{children}</div> : ''}</>
+        <>{show && show.show ? <div className="content mt-2">{children}</div> : ''}</>
     )
 }
 

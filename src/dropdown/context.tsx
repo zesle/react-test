@@ -1,33 +1,29 @@
-import React, {useContext, createContext, useState, useMemo} from 'react';
 
-export type DropdownContextValue = {
-    show: boolean
-};
+import React, {useContext, useState} from 'react';
 
-const Dropdown = createContext<DropdownContextValue | null>(null);
-
-const DropdownProvider = ({children}: { children: React.ReactNode }) => {
-    /* const [dropdownState, setCurrent] = useState({show: false});
-
-     const setDropdownState = (user: any) => {
-         setCurrent(user);
-     };
-
-     return <Dropdown.Provider value={[dropdownState, setDropdownState]}>{children}</Dropdown.Provider>
-     */
-
-    const [show] = useState(false)
-
-    const context = useMemo(
-        () => ({
-            show,
-        }),
-        [show],
-    );
-
-    return <Dropdown.Provider value={context}>{children}</Dropdown.Provider>
+interface DropdownContextInterface {
+    show: boolean;
+    setShow?: () => void;
 }
 
-const useDropdown = () => useContext(Dropdown);
+const defaultState = {
+    show: false,
+};
 
-export {DropdownProvider, useDropdown};
+const DropdownContext = React.createContext<DropdownContextInterface>(defaultState);
+
+const DropdownProvider = ({children}: { children: React.ReactNode }) => {
+    const [show, setShow0] = useState(false)
+
+    const setShow = () => {
+        setShow0(!show);
+    };
+
+    const value = {show, setShow}
+
+    return <DropdownContext.Provider value={value}>{children}</DropdownContext.Provider>
+}
+
+const useDropdown = () => useContext(DropdownContext);
+
+export {DropdownProvider, useDropdown}
