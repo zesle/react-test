@@ -18,7 +18,7 @@ function App() {
 
             {filters.map((filter: any, index: any) => {
                 return (
-                    <div key={index} className="flex mt-5 ml-5">
+                    <div key={index} className="mt-5 ml-5">
                         <Dropdown showx={filter.show}>
                             <Dropdown.Toggle>{filter.name}</Dropdown.Toggle>
                             <Dropdown.Content>

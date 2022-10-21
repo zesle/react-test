@@ -69,7 +69,7 @@ export const Content = ({children}: ContentProps) => {
     const show = useDropdown()
 
     return (
-        <>{show && show.show ? <div className="content mt-2">{children}</div> : ''}</>
+        <>{show && show.show ? <div className="absolute content mt-2">{children}</div> : ''}</>
     )
 }
 
