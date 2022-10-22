@@ -8,7 +8,7 @@ function App() {
 
     const handleClick = () => {
         setFilters((prevState: any) => {
-            return [...prevState, {open: true, name: 'filter 1'}]
+            return [...prevState, {open: true, name: 'filter ' + prevState.length}]
         })
     }
 

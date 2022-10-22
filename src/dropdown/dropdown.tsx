@@ -23,8 +23,8 @@ interface ToggleProps {
 export const Toggle = ({open, children}: ToggleProps) => {
     const {show, setShow} = useDropdown()
 
-    // const ref = React.useRef(null)
-    // useOnClickOutside(ref, setShow)
+    const ref = React.useRef(null)
+    useOnClickOutside(ref, setShow)
 
     useEffect(() => {
         if (open) setShow()
@@ -38,12 +38,12 @@ export const Toggle = ({open, children}: ToggleProps) => {
     //  children.props = props
 
     // return (<>{children(props)}</>)
+    console.log(children)
+    console.log('')
 
-    return <button
-        type="button" {...props}
-        className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2
+    return <button ref={ref} type="button" {...props} className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2
         text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-        {show?'true':'false'} == {children}
+        {show ? 'true' : 'false'} == {children}
     </button>
 }
 

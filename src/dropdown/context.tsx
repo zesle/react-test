@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 
 interface DropdownContextInterface {
     show?: boolean
-    setShow: () => any
+    setShow: () => void
 }
 
 const defaultState = {
@@ -13,13 +13,13 @@ const defaultState = {
 const DropdownContext = React.createContext<DropdownContextInterface>(defaultState);
 
 const DropdownProvider = ({children}: { children: React.ReactNode }) => {
-    const [show, setShow] = useState<boolean>(false)
+    const [show, setShow0] = useState<boolean>(false)
 
-    const setShow0 = (value: boolean = false) => {
-        setShow(!value)
+    const setShow = () => {
+        setShow0(!show)
     }
 
-    const value = {show, setShow: setShow0}
+    const value = {show, setShow}
 
     return <DropdownContext.Provider value={value}>{children}</DropdownContext.Provider>
 }
