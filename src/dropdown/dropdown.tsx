@@ -24,7 +24,7 @@ export const Toggle = ({filter, onToggle, children}: ToggleProps) => {
     const {show, setShow} = useDropdown()
 
     const ref = React.useRef(null)
-    useOnClickOutside(ref, setShow)
+    useOnClickOutside(ref, () => setShow(false))
 
     useEffect(() => {
         if (filter.open) setShow()

@@ -25,9 +25,9 @@ function App() {
                     filter: filter,
                     onToggle: (evt: any) => {
                         setFilters((prevState: any) => {
-                            const prevState0 = prevState
+                            const prevState0 = [...prevState];
                             prevState0[index].open = evt
-                            return [...prevState0]
+                            return prevState0
                         })
                     }
                 }
