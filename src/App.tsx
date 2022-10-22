@@ -1,10 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Dropdown from "./dropdown/dropdown";
 import DropContent from "./DropContent";
 import './App.css';
 
 function App() {
-    const [filters, setFilters] = useState<any>([])
+    const [filters, setFilters] = useState<any>([{open: true, name: 'filter 0'}])
+
+    useEffect(() => {
+        console.log(filters)
+    }, [filters])
 
     const handleClick = () => {
         setFilters((prevState: any) => {
@@ -17,10 +21,21 @@ function App() {
             <button onClick={handleClick}>Add filter</button>
 
             {filters.map((filter: any, index: any) => {
+                const props = {
+                    filter: filter,
+                    onToggle: (evt: any) => {
+                        setFilters((prevState: any) => {
+                            const prevState0 = prevState
+                            prevState0[index].open = evt
+                            return [...prevState0]
+                        })
+                    }
+                }
+
                 return (
                     <div key={index} className="mt-5 ml-5">
                         <Dropdown>
-                            <Dropdown.Toggle open={filter.open}>{filter.name}</Dropdown.Toggle>
+                            <Dropdown.Toggle {...props}>{filter.name}</Dropdown.Toggle>
                             <Dropdown.Content>
                                 <DropContent/>
                             </Dropdown.Content>

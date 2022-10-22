@@ -15,12 +15,13 @@ const Dropdown = ({children}: DropdownProps) => {
 }
 
 interface ToggleProps {
+    index: number,
     filter: any,
-    onToggle: React.Dispatch<any>,
+    setFilters: React.Dispatch<any>,
     children: React.ReactNode
 }
 
-export const Toggle = ({filter, onToggle, children}: ToggleProps) => {
+export const Toggle = ({index, filter, setFilters, children}: ToggleProps) => {
     const {show, setShow} = useDropdown()
 
     const ref = React.useRef(null)
@@ -30,11 +31,9 @@ export const Toggle = ({filter, onToggle, children}: ToggleProps) => {
         if (filter.open) setShow()
     }, [])
 
-    useEffect(() => {
-        onToggle(show)
-    }, [show])
-
     const handleClick = (evt: any) => {
+        console.log(index)
+        console.log(filter)
         setShow()
     }
 
